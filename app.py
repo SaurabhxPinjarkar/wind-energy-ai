@@ -278,14 +278,18 @@ def api_batch_predict():
 
 
 if __name__ == '__main__':
+    import os
     print("\n" + "=" * 80)
     print("WIND FARM DEPLOYMENT PREDICTION SYSTEM")
     print("=" * 80)
     print(f"\n✓ Best Model: {best_model_name}")
     print(f"✓ 100 Locations Loaded")
     print(f"✓ Flask Server Starting...")
-    print(f"\n🌐 Open your browser and go to:")
-    print(f"   http://localhost:5000")
+    
+    port = int(os.environ.get('PORT', 10000))
+    print(f"\n🌐 Server will run on port: {port}")
     print("\n" + "=" * 80)
     
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=port)
+
+
