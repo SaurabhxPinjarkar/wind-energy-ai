@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wind Farm Intelligence | Neo</title>
+    
+    <!-- Leaflet Configuration -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    
+    <!-- Professional Glass Theme -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="glass-panel">
+            <div>
+                <h1>AeroGraph Intelligence</h1>
+                <p class="subtitle">AI-Powered Wind Farm Deployment Mapping Engine</p>
+            </div>
+            
+            <div style="font-size: 0.9em; display: flex; gap: 15px; align-items: center;">
+                <span style="color: var(--success);">System Online</span>
+                <span id="model-name" class="glass-panel" style="padding: 5px 12px; font-weight: 500;">Loading Engine...</span>
+            </div>
+        </header>
+
+        <div class="content">
+            <!-- Main Mapping Column -->
+            <div style="display: flex; flex-direction: column; flex: 1; gap: 20px; overflow: hidden;">
+                <!-- Map Space -->
+                <div class="map-container glass-panel" style="flex: 1;">
+                    <div id="map"></div>
+                </div>
+
+                <!-- Comparison Board -->
+                <div class="glass-panel" style="height: 220px; display: flex; flex-direction: column; padding: 20px; flex-shrink: 0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.1); padding-bottom: 10px; margin-bottom: 15px;">
+                        <h2 style="font-size: 1.1em; font-weight: 500;">Strategic Comparison Board</h2>
+                        <button class="btn-secondary" style="width: auto; padding: 6px 15px; font-size: 0.8em;" onclick="clearComparison()">Clear Board</button>
+                    </div>
+                    <div id="comparison-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; flex: 1;">
+                        <div style="grid-column: span 4; text-align: center; color: var(--text-muted); align-self: center; font-size: 0.9em;">
+                            Analyze a location and click "Add to Compare" to build a cross-site analysis.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Sidebar -->
+            <aside class="sidebar glass-panel">
+                
+                <!-- Prediction Results Dashboard -->
+                <div class="sidebar-section">
+                    <h2>Real-Time Analysis</h2>
+                    <div id="prediction-results" style="min-height: 150px;">
+                        <p style="color: var(--text-muted); text-align: center; margin-top: 30px;">
+                            Click map to initiate satellite scan
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Manual Target Input -->
+                <div class="sidebar-section">
+                    <h2>Target Coordinates</h2>
+                    <div class="input-group">
+                        <input type="text" id="lat-input" placeholder="Latitude (e.g., 18.5204)">
+                        <input type="text" id="lon-input" placeholder="Longitude (e.g., 73.8567)">
+                    </div>
+                    <button class="btn-primary" onclick="manualPredict()">
+                        Initiate Scan
+                    </button>
+                </div>
+
+                <!-- Controls -->
+                <div class="sidebar-section">
+                    <h2>Control Panel</h2>
+                    <div class="action-buttons">
+                        <button class="btn-secondary" onclick="showAllLocations()">
+                            Map Historical Hotspots (100)
+                        </button>
+                        <button class="btn-secondary" onclick="clearMap()">
+                            Clear Canvas
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Deep Details (Metrics) -->
+                <div class="sidebar-section">
+                    <h2>Engine Telemetry</h2>
+                    <div class="model-info">
+                        <div class="info-row">
+                            <span class="info-label">R² Accuracy</span>
+                            <span class="info-value" id="model-r2">-</span>
+                        </div>
+                        <div class="info-row" style="border:none; padding-bottom:0;">
+                            <span class="info-label">Baseline Threshold</span>
+                            <span class="info-value"><span id="threshold">-</span> kWh</span>
+                        </div>
+                    </div>
+                </div>
+
+            </aside>
+        </div>
+    </div>
+
+    <!-- Leaflet & App Logic -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
